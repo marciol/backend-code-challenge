@@ -14,6 +14,7 @@ GEM
   specs:
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    algorithms (0.6.1)
     capybara (2.14.0)
       addressable
       mime-types (>= 1.16)
@@ -151,6 +152,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  algorithms
   capybara
   dotenv (~> 2.0)
   hanami (~> 1.0)

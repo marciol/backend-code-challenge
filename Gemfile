@@ -9,6 +9,9 @@ gem 'pg'
 # Added the head version in order to avoid some warnings from the 1.3 version
 gem 'rom-sql', :git => 'https://github.com/rom-rb/rom-sql'
 
+# Kanwei algorithms
+gem 'algorithms'
+
 group :development do
   # Code reloading
   # See: http://hanamirb.org/guides/projects/code-reloading

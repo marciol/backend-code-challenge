@@ -1,18 +1,11 @@
 require 'spec_helper'
 
-describe Distance do
+describe Location do
 
   let(:repository) { DistanceRepository.new }
 
   before do
     repository.clear
-  end
-
-  it 'all attributes are present on instantiated entity' do
-    distance = Distance.new(origin: 'A', destination: 'B', value: 100)
-    distance.origin.must_equal 'A'
-    distance.destination.must_equal 'B'
-    distance.value.must_equal 100
   end
 
   describe '#shortest_path' do
@@ -38,8 +31,8 @@ describe Distance do
 		end
 
 		it 'returns the shortest path distances from one distance to another distance' do
-			origin = repository.find_by_origin('A')
-			destination = repository.find_by_origin('H')
+			origin = Location.new(name: 'A')
+			destination = Location.new(name: 'H')
 			origin.shortest_path(destination).must_equal repository.by_origin('B', 'F', 'H').to_a
 		end
 
@@ -49,8 +42,8 @@ describe Distance do
 			end
 
 			it 'returns empty array as result' do
-				origin = repository.find_by_origin('A')
-				destination = repository.find_by_origin('I')
+				origin = Location.new(name: 'A')
+				destination = Location.new(name: 'I')
 				origin.shortest_path(destination).must_be_empty
 	    end
 		end
