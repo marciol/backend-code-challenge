@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+psql <<EOF 
+\x
+DROP DATABASE IF EXISTS hack_commerce_production;
+CREATE DATABASE hack_commerce_production;
+EOF
+
+export HANAMI_ENV=production
+export DATABASE_URL="postgresql://localhost/hack_commerce_production"
+
+bundle exec hanami db migrate
+
+puma -t 16:16 -w 2 -p 2300 -e production > /dev/null 2>&1 &
+
+_server=$!
+
+sleep 2 
+
+wrk2 -t 2 -c 1000 -d 30s -L -R500 -T20s -s benchmark/scripts/multiple-distances-data.lua http://localhost:2300/ -- 2
+
+kill $_server
+
+

@@ -1,6 +1,7 @@
 module Shipping::Controllers::Distances
   class Create
     include Shipping::Action
+    accept :txt
 
     LOWER_DIST_LIMIT = 0
     HIGH_DIST_LIMIT  = 100_000

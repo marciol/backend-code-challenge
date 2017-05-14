@@ -115,6 +115,7 @@ GEM
       mini_portile2 (~> 2.1.0)
     pg (0.20.0)
     public_suffix (2.0.5)
+    puma (3.8.2)
     rack (2.0.2)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -156,6 +157,7 @@ DEPENDENCIES
   hanami-model (~> 1.0)
   minitest
   pg
+  puma
   rake
   rom-sql!
   shotgun

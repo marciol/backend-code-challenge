@@ -95,7 +95,7 @@ module Shipping
       # Default format for responses that don't consider the request format
       # Argument: A symbol representation of a mime type, defaults to :html
       #
-      # default_response_format :html
+      default_response_format :txt
 
       # HTTP Body parsers
       # Parse non GET responses body for a specific mime type
