@@ -28,8 +28,8 @@ http://localhost:2300/shipping/cost
 
 There are 2 special directories to pay attention, with proper Readmes:
 
-1. `seeds`, where are scripts and instructions to seed the app.
-2. `benchmark`, where are scripts to load test the app
+1. [seeds](https://github.com/marciol/backend-code-challenge/tree/master/seeds), where are scripts and instructions to seed the app.
+2. [benchmark](https://github.com/marciol/backend-code-challenge/tree/master/benchmark), where are scripts to load test the app
 
 This is all.
 
