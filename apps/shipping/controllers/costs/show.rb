@@ -19,37 +19,37 @@ module Shipping::Controllers::Costs
 
     def call(params)
       if params.valid?
-      	value = calculate_cost(params)
+        value = calculate_cost(params)
         status 200, value.to_s('F')
       else
         status 422, params.error_messages
       end
     rescue ArgumentError => e
-    	status 422, e.message
+      status 422, e.message
     end
 
     private
 
     def calculate_cost(params)
-    	origin = Location.new(repository: @repository, name: params[:origin])
-    	destination = Location.new(repository: @repository, name: params[:destination])
-    	@distances = origin.shortest_path(destination)
+      origin = Location.new(repository: @repository, name: params[:origin])
+      destination = Location.new(repository: @repository, name: params[:destination])
+      @distances = origin.shortest_path(destination)
 
-    	fresh etag: etag
+      fresh etag: etag
 
-    	cost = Cost.new(distances: @distances, weight: params[:weight])
-    	cost.calculate
+      cost = Cost.new(distances: @distances, weight: params[:weight])
+      cost.calculate
     end
 
     def etag
-    	value = md5(@distances.map(&:updated_at).join("-"))
-    	"W/#{value}"
+      value = md5(@distances.map(&:updated_at).join("-"))
+      "W/#{value}"
     end
 
     def md5(value)
-    	md5 = Digest::MD5.new
-    	md5.update(value)
-    	md5.hexdigest
+      md5 = Digest::MD5.new
+      md5.update(value)
+      md5.hexdigest
     end
   end
 end

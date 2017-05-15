@@ -13,7 +13,7 @@ end
 function init(args)
   chunck_size = math.floor(#distance_data / args[1])
   counter = chunck_size * id
-  counter_limit = counter + chunck_size 
+  counter_limit = counter + chunck_size
 end
 
 -- Load distance data from the file

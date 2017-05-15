@@ -28,7 +28,7 @@ describe 'Shipping distance' do
 
     describe 'with an already created distance' do
       before do
-        @distance = repository.create(origin: 'A', destination: 'B', value: 100)  
+        @distance = repository.create(origin: 'A', destination: 'B', value: 100)
       end
 
       it 'only update the value' do

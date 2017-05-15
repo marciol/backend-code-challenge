@@ -25,7 +25,7 @@ describe DistanceRepository do
       repository.create(origin: 'A', destination: 'C', value: 100)
       repository.create(origin: 'B', destination: 'A', value: 100)
       repository.create(origin: 'B', destination: 'C', value: 100)
-    end 
+    end
 
     it 'returns all vertexes from database' do
       repository.load_vertexes.must_equal({'A' => {'B' => 100, 'C' => 100}, 'B' => {'A' => 100, 'C' => 100}, 'C' => {'A' => 100, 'B' => 100}})
@@ -37,7 +37,7 @@ describe DistanceRepository do
       @fst = repository.create(origin: 'A', destination: 'B', value: 100)
       @snd = repository.create(origin: 'B', destination: 'C', value: 100)
       @trd = repository.create(origin: 'C', destination: 'B', value: 100)
-    end 
+    end
 
     it 'returns distances by origin name' do
       repository.by_origin('A', 'B').to_a.must_equal [@fst, @snd]
