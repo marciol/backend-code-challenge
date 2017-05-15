@@ -12,6 +12,10 @@ gem 'rom-sql', :git => 'https://github.com/rom-rb/rom-sql'
 # Kanwei algorithms
 gem 'algorithms'
 
+# rack-cache
+gem 'rack-cache'
+gem 'redis-rack-cache'
+
 group :development do
   # Code reloading
   # See: http://hanamirb.org/guides/projects/code-reloading
@@ -24,6 +28,7 @@ end
 
 group :test do
   gem 'minitest'
+  gem "minitest-stub_any_instance"
   gem 'capybara'
 end
 

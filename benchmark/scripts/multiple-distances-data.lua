@@ -41,7 +41,7 @@ function load_distance_data_from_file(file)
   return lines
 end
 
-distance_data = load_distance_data_from_file("seeds/locations.txt")
+distance_data = load_distance_data_from_file("seeds/distance_locations.txt")
 print("multiple-distances-data: Found " .. #distance_data .. " distances")
 
 request = function()

@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-<seeds/locations.txt xargs -P 2 -I '[]' curl -s -w ' STATUS:%{http_code}\n' -X POST -d '[]' http://localhost:2300/shipping/distances

@@ -26,7 +26,7 @@ describe DijkstrasGraph do
 		end
 
 		it 'returns the shortest path and distances for each node' do
-			graph.shortest_path('A', 'H').must_equal([['B', 'F', 'H'], {'A' => 0, 'B' => 7, 'C' => 8, 'D' => 17, 'E' => DijkstrasGraph::INFINITY, 'F' => 9, 'G' => 12, 'H' => 12, 'I' => DijkstrasGraph::INFINITY}])
+			graph.shortest_path('A', 'H').must_equal([['A', 'B', 'F', 'H'], {'A' => 0, 'B' => 7, 'C' => 8, 'D' => 17, 'E' => DijkstrasGraph::INFINITY, 'F' => 9, 'G' => 12, 'H' => 12, 'I' => DijkstrasGraph::INFINITY}])
 		end
 
 		it 'returns and empty path and all attempted distances for a no connected node' do

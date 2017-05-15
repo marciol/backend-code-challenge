@@ -19,16 +19,16 @@ class DijkstrasGraph
 		@vertices.each do |vertex, value|
 			if vertex == start # Set root node as distance of 0
 				distances[vertex] = 0
-				nodes.push(vertex, 0)
+				nodes.push(0, vertex)
 			else
 				distances[vertex] = INFINITY 
-				nodes.push(vertex, INFINITY)
+				nodes.push(INFINITY, vertex)
 			end
 			previous[vertex] = nil
 		end
 			
 		while nodes
-			current = delete_min_return_key(nodes) # Vertex in nodes with current distance in distances
+			current = nodes.min! # Vertex in nodes with current distance in distances
 
 			if current == finish # If the closest node is our target we're done so print the path
 				path = []
@@ -52,6 +52,7 @@ class DijkstrasGraph
 				end
 			end
 		end
+		path = path + [start] unless path.empty?
 		return [path.reverse, distances]
 	end
 	
@@ -61,14 +62,8 @@ class DijkstrasGraph
 
 	private
 
-	def delete_min_return_key(nodes)
-		key = nodes.next_key
-		nodes.delete(key)
-		key
-	end
-
 	def change_priority(nodes, key, value)
 		nodes.delete(key)
-		nodes.push(key, value)
+		nodes.push(value, key)
 	end
 end

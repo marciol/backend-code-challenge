@@ -11,6 +11,12 @@ export DATABASE_URL="postgresql://localhost/hack_commerce_production"
 
 bundle exec hanami db migrate
 
+psql -d hack_commerce_production <<EOF 
+\x
+DELETE FROM distances;
+\copy distances(origin, destination, value, created_at, updated_at) FROM 'seeds/database_locations.csv' DELIMITER ',' CSV QUOTE '''';
+EOF
+
 puma -t 16:16 -w 2 -p 2300 -e production > /dev/null 2>&1 &
 _server=$!
 
@@ -19,7 +25,7 @@ _redis_server=$!
 
 sleep 2 
 
-wrk2 -t 2 -c 1000 -d 30s -L -R500 -T20s -s benchmark/scripts/multiple-distances-data.lua http://localhost:2300/ -- 2
+wrk2 -t 2 -c 1000 -d 30s -L -R500 -T20s -s benchmark/scripts/multiple-costs-data.lua http://localhost:2300/
 
 kill $_server
 kill $_redis_server

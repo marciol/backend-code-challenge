@@ -1,3 +1,4 @@
 .envrc
 .rbenv-vars
 .gems
+dump.rdb

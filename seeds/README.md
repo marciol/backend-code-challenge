@@ -3,8 +3,14 @@ Seeds
 
 Here live the scripts to seed with data our hack_commerce app.
 
-In order to seed the distances execute
+There are two ways to seed, via http seed:
 
 ```
-seeds/seed_distances
+seeds/http_seed_distances
+```
+
+Or via database seed:
+
+```
+seeds/database_seed_distances
 ```

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+psql -d $1 <<EOF 
+\x
+DELETE FROM distances;
+\copy distances(origin, destination, value, created_at, updated_at) FROM 'seeds/database_locations.csv' DELIMITER ',' CSV QUOTE '''';
+EOF

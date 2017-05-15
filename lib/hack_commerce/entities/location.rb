@@ -11,8 +11,10 @@ class Location
 			graph.add_vertex(node, distances)
 		end
 
-		origin_names, _ = graph.shortest_path(self.name, location.name)
+		path, _ = graph.shortest_path(self.name, location.name)
 
-		@repository.by_origin(*origin_names).to_a
+		path.each_cons(2).map do |origin, destination|
+			@repository.find_by_origin_and_destination(origin, destination)
+		end
 	end
 end

@@ -1,6 +1,40 @@
 Ruby Engineer Coding Challenge
 =======================
 
+## Instructions
+
+I developed this application using the awesome framework [Hanami](http://hanamirb.org/) so in order do test execute: 
+
+```
+hanami db prepare
+hanami server
+```
+
+To experiment with `/shipping/distances` api and create some distance points execute:
+
+```
+curl -s -w ' STATUS:%{http_code}\n' -X POST \
+-d 'distance[origin]=USA&distance[destination]=CAN&distance[value]=731' \
+http://localhost:2300/shipping/distances
+```
+
+To experiment with `/shipping/cost` api, execute:
+
+```
+curl -s -w ' STATUS:%{http_code}\n' -X POST \
+-d 'distance[origin]=USA&distance[destination]=CAN&distance[value]=731' \
+http://localhost:2300/shipping/cost
+```
+
+There are 2 special directories to pay attention, with proper Readmes:
+
+1. `seeds`, where are scripts and instructions to seed the app.
+2. `benchmark`, where are scripts to load test the app
+
+This is all.
+
+---
+
 Hello!
 
 We've come up with this relatively open-ended programming/engineering challenge that will allow you to demonstrate your skills from the comfort of your own workspace. In addition, we know your time is valuable, so please feel free to use your completed work as a portfolio piece.

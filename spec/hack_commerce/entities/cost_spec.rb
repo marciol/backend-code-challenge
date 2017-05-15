@@ -10,6 +10,15 @@ describe Cost do
 
   let(:cost) { Cost.new(distances: distances, weight: 100) }
 
+  describe '.new' do
+		it 'raises an ArgumentError exception when distances is empty' do
+			err = proc {
+				Cost.new(distances: [], weight: 100)
+			}.must_raise ArgumentError
+			err.message.must_equal 'is not possible to calculate without a route'
+		end
+  end
+
 	describe '#calculate' do
 		it 'calculates the cost based on distances and weight with a default shipping tax' do
 			cost.calculate.must_equal BigDecimal.new("135.0")
