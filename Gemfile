@@ -16,6 +16,9 @@ gem 'algorithms'
 gem 'rack-cache'
 gem 'redis-rack-cache'
 
+# sidekiq
+gem 'sidekiq'
+
 group :development do
   # Code reloading
   # See: http://hanamirb.org/guides/projects/code-reloading

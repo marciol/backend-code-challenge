@@ -1,6 +1,7 @@
 require 'bundler/setup'
 require 'hanami/setup'
 require 'hanami/model'
+require_relative './sidekiq'
 require_relative '../lib/hack_commerce'
 require_relative '../apps/web/application'
 require_relative '../apps/shipping/application'
