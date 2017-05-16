@@ -10,22 +10,18 @@ class DistanceRepository < Hanami::Repository
 
   def load_vertexes
     rel = root.read <<~SQL
-      WITH all_distances AS (
-        SELECT
-          origin o, destination d, value
-          FROM distances
-        UNION ALL
-          SELECT destination o, origin d, value
-          FROM distances
-        ),
-        distinct_all_distances AS (
-          SELECT DISTINCT * FROM all_distances
-        ),
-        json_grouped_distances AS (
-          SELECT o k, json_object_agg(d, value) v
-          FROM distinct_all_distances GROUP BY o
-        ) SELECT json_object_agg(k, v) as vertexes FROM json_grouped_distances
-      SQL
+      SELECT json_object_agg(k, v) as vertexes FROM (
+        SELECT o k, json_object_agg(d, value) v FROM (
+          SELECT DISTINCT * FROM (
+            SELECT
+              origin o, destination d, value
+              FROM distances
+            UNION ALL
+              SELECT destination o, origin d, value
+              FROM distances ) all_distances
+        ) distinct_all_distances GROUP BY o
+      ) json_grouped_distances
+    SQL
     rel.last[:vertexes]
   end
 
