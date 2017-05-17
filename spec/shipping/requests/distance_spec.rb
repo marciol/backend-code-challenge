@@ -5,9 +5,11 @@ describe 'Shipping distance' do
     include Rack::Test::Methods
 
     let(:repository) { DistanceRepository.new }
+    let(:distances_graph_repository) { DistancesGraphRepository.new }
 
     before do
       repository.clear
+      distances_graph_repository.refresh_graph
     end
 
     def app
@@ -41,6 +43,18 @@ describe 'Shipping distance' do
         last_response.body.must_equal 'OK'
         repository.all.size.must_equal 1
         repository.last.to_h.values_at(:origin, :destination, :value).must_equal ['A', 'B', 150]
+      end
+
+      it 'changes the distance graph' do
+        Sidekiq::Testing.inline! do
+          post '/shipping/distances', distance: {
+            origin:      'A',
+            destination: 'B',
+            value: 150
+          }
+          distances_graph = distances_graph_repository.graph
+          distances_graph.vertexes.must_equal({'A' => {'B' => 150}, 'B' => {'A' => 150}})
+        end
       end
     end
 

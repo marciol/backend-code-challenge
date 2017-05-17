@@ -14,8 +14,13 @@ module Shipping::Controllers::Distances
       end
     end
 
-    def initialize(repository: DistanceRepository.new)
+    after :refresh_distances_graph
+
+    def initialize(
+      repository: DistanceRepository.new, 
+      worker: RefreshDistancesGraphWorker)
       @repository = repository
+      @worker = worker
     end
 
     def call(params)
@@ -25,6 +30,12 @@ module Shipping::Controllers::Distances
       else
         status 422, params.error_messages
       end
+    end
+
+    private
+
+    def refresh_distances_graph
+      @worker.perform_async
     end
   end
 end

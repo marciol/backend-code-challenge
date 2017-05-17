@@ -33,7 +33,7 @@ end
 
 group :test do
   gem 'minitest'
-  gem "minitest-stub_any_instance"
+  gem 'minitest-stub_any_instance'
   gem 'capybara'
 end
 

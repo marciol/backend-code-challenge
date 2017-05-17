@@ -8,6 +8,7 @@ EOF
 
 export HANAMI_ENV=production
 export DATABASE_URL="postgresql://localhost/hack_commerce_production"
+export REDIS_URL=redis://localhost:6379/hack_commerce_production
 
 bundle exec hanami db migrate
 
