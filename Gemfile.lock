@@ -15,6 +15,7 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     algorithms (0.6.1)
+    byebug (9.0.6)
     capybara (2.14.0)
       addressable
       mime-types (>= 1.16)
@@ -22,6 +23,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    coderay (1.1.1)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     dotenv (2.2.1)
@@ -108,6 +110,7 @@ GEM
     inflecto (0.0.2)
     mail (2.6.5)
       mime-types (>= 1.16, < 4)
+    method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -117,6 +120,10 @@ GEM
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
     pg (0.20.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     public_suffix (2.0.5)
     puma (3.8.2)
     rack (2.0.2)
@@ -157,6 +164,7 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.3, >= 3.3.3)
+    slop (3.6.0)
     thor (0.19.4)
     tilt (2.0.7)
     transproc (1.0.2)
@@ -170,6 +178,7 @@ PLATFORMS
 
 DEPENDENCIES
   algorithms
+  byebug
   capybara
   dotenv (~> 2.0)
   hanami (~> 1.0)
@@ -177,6 +186,7 @@ DEPENDENCIES
   minitest
   minitest-stub_any_instance
   pg
+  pry
   puma
   rack-cache
   rake

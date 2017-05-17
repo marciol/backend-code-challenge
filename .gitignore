@@ -2,3 +2,4 @@
 .rbenv-vars
 .gems
 dump.rdb
+.byebug_history
