@@ -1,6 +1,8 @@
 require 'bundler/setup'
 require 'hanami/setup'
-require 'hanami/model'
+# require 'hanami/model'
+require 'rom'
+require 'rom-sql'
 require_relative './sidekiq'
 require_relative '../lib/hack_commerce'
 require_relative '../apps/web/application'
@@ -10,7 +12,7 @@ Hanami.configure do
   mount Shipping::Application, at: '/shipping'
   mount Web::Application, at: '/'
 
-  model do
+#  model do
     ##
     # Database adapter
     #
@@ -21,14 +23,14 @@ Hanami.configure do
     #    adapter :sql, 'postgresql://localhost/hack_commerce_development'
     #    adapter :sql, 'mysql://localhost/hack_commerce_development'
     #
-    adapter :sql, ENV['DATABASE_URL']
+    # adapter :sql, ENV['DATABASE_URL']
 
     ##
     # Migrations
     #
-    migrations 'db/migrations'
-    schema     'db/schema.sql'
-  end
+    # migrations 'db/migrations'
+    # schema     'db/schema.sql'
+#  end
 
   mailer do
     root 'lib/hack_commerce/mailers'
@@ -50,3 +52,7 @@ Hanami.configure do
     end
   end
 end
+
+configuration = ROM::Configuration.new(:sql, ENV['DATABASE_URL'], extensions: [:pg_json])
+configuration.auto_registration('../lib/hack_commerce')
+HackCommerce.rom_container = ROM.container(configuration)

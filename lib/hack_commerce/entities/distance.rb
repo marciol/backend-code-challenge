@@ -1,2 +1,2 @@
-class Distance < Hanami::Entity
+class Distance 
 end

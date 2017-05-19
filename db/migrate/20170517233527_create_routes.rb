@@ -1,12 +1,10 @@
 #Hanami::Model.migration do
 #  change do
-#    create_table :distances do
+#    create_table :routes do
 #      primary_key :id
-#
 #      column :origin, String, null: false
 #      column :destination, String, null: false
-#      column :value, Integer, null: false
-#      index [:origin, :destination, :value], unique: true
+#      index [:origin, :destination], unique: true
 #
 #      column :created_at, DateTime, null: false
 #      column :updated_at, DateTime, null: false
