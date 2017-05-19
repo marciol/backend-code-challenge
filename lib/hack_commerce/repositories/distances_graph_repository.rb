@@ -1,4 +1,4 @@
-class DistancesGraphRepository < ROM::Repository[:distances_graphs]
+class DistancesGraphRepository < HackCommerce::Repository[:distances_graphs]
 #  self.relation = :distances_graph
 #
 #	def graph

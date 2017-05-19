@@ -1,4 +1,4 @@
-class DistanceRepository < ROM::Repository[:distances]
+class DistanceRepository < HackCommerce::Repository[:distances]
 #  associations do
 #    has_many :stretches
 #  end

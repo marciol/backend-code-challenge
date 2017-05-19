@@ -17,7 +17,7 @@ module Shipping::Controllers::Distances
     after :refresh_distances_graph
 
     def initialize(
-      repository: DistanceRepository.new, 
+      repository: DistanceRepository.new(HackCommerce.rom_container), 
       worker: RefreshDistancesGraphWorker)
       @repository = repository
       @worker = worker

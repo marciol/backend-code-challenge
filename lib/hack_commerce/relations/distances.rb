@@ -1,5 +1,3 @@
-require 'rom-sql'
-
 class Distances < ROM::Relation[:sql]
   schema(infer: true) do
     associations do

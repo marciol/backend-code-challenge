@@ -1,4 +1,4 @@
-class DistancesGraph 
+class DistancesGraph < HackCommerce::Entity
 
 	# hack to avoid transforming all keys on symbols
 	# there are discussions about how to deal with it

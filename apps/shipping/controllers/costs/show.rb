@@ -13,7 +13,7 @@ module Shipping::Controllers::Costs
       required(:weight).filled(:float?)
     end
 
-    def initialize(repository: DistanceRepository.new)
+    def initialize(repository: DistanceRepository.new(HackCommerce.rom_container))
       @repository = repository
     end
 

@@ -1,2 +1,2 @@
-class Distance 
+class Distance < HackCommerce::Entity
 end

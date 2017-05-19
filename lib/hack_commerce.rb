@@ -1,3 +1,6 @@
+require_relative './hack_commerce/entity'
+require_relative './hack_commerce/repository'
+
 module HackCommerce
   def self.rom_container
     thread_local[:rom_container]

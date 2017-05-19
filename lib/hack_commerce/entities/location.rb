@@ -1,4 +1,4 @@
-class Location
+class Location < HackCommerce::Entity
   attr_reader :name
 
   def initialize(repository: DistanceRepository.new, name:)

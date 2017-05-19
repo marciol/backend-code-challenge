@@ -1,4 +1,4 @@
-class RouteRepository < ROM::Repository[:routes]
+class RouteRepository < HackCommerce::Repository[:routes]
 	relations :distances
 
 #	associations do

@@ -1,2 +1,2 @@
-class Stretch
+class Stretch < HackCommerce::Entity
 end

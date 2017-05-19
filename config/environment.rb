@@ -53,6 +53,8 @@ Hanami.configure do
   end
 end
 
-configuration = ROM::Configuration.new(:sql, ENV['DATABASE_URL'], extensions: [:pg_json])
-configuration.auto_registration('../lib/hack_commerce')
-HackCommerce.rom_container = ROM.container(configuration)
+$configuration = ROM::Configuration.new(:sql, ENV['DATABASE_URL'], extensions: [:pg_json])
+$configuration.auto_registration('./lib/hack_commerce', namespace: false)
+require 'byebug'
+byebug
+HackCommerce.rom_container = ROM.container($configuration)
