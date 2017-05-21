@@ -1,6 +1,5 @@
 class DistancesGraph < HackCommerce::Entity
   attribute :vertexes,   Types::Json
-  attribute :updated_at, Types::DateTime
 
 	# hack to avoid transforming all keys on symbols
 	# there are discussions about how to deal with it

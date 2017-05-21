@@ -10,6 +10,9 @@ gem 'pg'
 gem 'rom-repository', :git => 'https://github.com/rom-rb/rom-repository'
 gem 'rom-sql', :git => 'https://github.com/rom-rb/rom-sql'
 
+# dry-monads
+gem 'dry-monads'
+
 # Kanwei algorithms
 gem 'algorithms'
 

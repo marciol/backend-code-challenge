@@ -1,5 +1,5 @@
 require 'rom-sql'
 
 class DistancesGraphs < ROM::Relation[:sql]
-  schema(infer: true)
+  schema(:distances_graph, infer: true)
 end

@@ -1,9 +1,6 @@
 require 'bundler/setup'
 require 'hanami/setup'
 # require 'hanami/model'
-require 'rom'
-require 'rom-sql'
-require_relative './sidekiq'
 require_relative '../lib/hack_commerce'
 require_relative '../apps/web/application'
 require_relative '../apps/shipping/application'
@@ -52,7 +49,3 @@ Hanami.configure do
     end
   end
 end
-
-configuration = ROM::Configuration.new(:sql, ENV['DATABASE_URL'], extensions: [:pg_json])
-configuration.auto_registration('./lib/hack_commerce', namespace: false)
-HackCommerce.rom_container = ROM.container(configuration)

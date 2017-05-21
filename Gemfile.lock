@@ -50,6 +50,9 @@ GEM
       dry-container (~> 0.2, >= 0.2.6)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
+    dry-monads (0.3.1)
+      dry-core
+      dry-equalizer
     dry-struct (0.3.0)
       dry-configurable (~> 0.1)
       dry-core (~> 0.3)
@@ -180,6 +183,7 @@ DEPENDENCIES
   byebug
   capybara
   dotenv (~> 2.0)
+  dry-monads
   hanami (~> 1.0)
   minitest
   minitest-stub_any_instance

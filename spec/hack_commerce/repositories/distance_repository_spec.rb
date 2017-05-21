@@ -15,7 +15,7 @@ describe DistanceRepository do
 
     it 'update an already inserted distance with same origin and destination' do
       distance = repository.create(origin: 'A', destination: 'B', value: 100)
-      repository.upsert(origin: 'A', destination: 'B', value: 100).must_equal distance
+      without_timestamps(repository.upsert(origin: 'A', destination: 'B', value: 100)).must_equal without_timestamps(distance)
     end
   end
 
