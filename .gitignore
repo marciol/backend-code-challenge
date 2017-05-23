@@ -1,4 +1,7 @@
 .envrc
 .rbenv-vars
+.rvmrc
+tags
 .gems
 dump.rdb
+.byebug_history

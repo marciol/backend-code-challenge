@@ -2,9 +2,10 @@ require 'spec_helper'
 require_relative '../../../../apps/shipping/controllers/distances/create'
 
 describe Shipping::Controllers::Distances::Create do
-  let(:action)     { Shipping::Controllers::Distances::Create.new(repository: repository) }
+  let(:action)     { Shipping::Controllers::Distances::Create.new(repository: repository, worker: worker) }
   let(:distance)   { Distance.new(origin: 'A', destination: 'B', value: 100) }
   let(:repository) { DistanceRepository.new }
+  let(:worker) { RefreshDistancesGraphWorker }
 
   describe 'with invalid params' do
 
@@ -44,6 +45,16 @@ describe Shipping::Controllers::Distances::Create do
 
   describe 'with valid params' do
     let(:params) { Hash[distance: {origin: 'A', destination: 'B', value: 100} ] }
+    let(:worker) do 
+      Class.new do
+        class << self
+          attr_accessor :has_been_called
+          def perform_async(*args)
+            @has_been_called = true
+          end
+        end
+      end
+    end
 
     it 'returns status 200 and OK message' do
       repository.stub :upsert, distance do
@@ -51,6 +62,11 @@ describe Shipping::Controllers::Distances::Create do
         response[0].must_equal 200
         response[2].must_equal ['OK']
       end
+    end
+
+    it 'calls the RefreshDistancesGraphWorker' do
+      action.call(params)
+      worker.has_been_called.must_equal true
     end
   end
 end

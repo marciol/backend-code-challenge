@@ -8,13 +8,15 @@ EOF
 
 export HANAMI_ENV=production
 export DATABASE_URL="postgresql://localhost/hack_commerce_production"
+export REDIS_URL=redis://localhost:6379/hack_commerce_production
 
-bundle exec hanami db migrate
+bundle exec rake db:migrate
 
 psql -d hack_commerce_production <<EOF 
 \x
 DELETE FROM distances;
 \copy distances(origin, destination, value, created_at, updated_at) FROM 'seeds/database_locations.csv' DELIMITER ',' CSV QUOTE '''';
+REFRESH MATERIALIZED VIEW distances_graph;
 EOF
 
 puma -t 16:16 -w 2 -p 2300 -e production > /dev/null 2>&1 &
@@ -29,5 +31,3 @@ wrk2 -t 2 -c 1000 -d 30s -L -R500 -T20s -s benchmark/scripts/multiple-costs-data
 
 kill $_server
 kill $_redis_server
-
-

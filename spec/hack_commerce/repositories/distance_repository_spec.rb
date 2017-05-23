@@ -9,13 +9,15 @@ describe DistanceRepository do
 
   describe '#upsert' do
     it 'insert a new distance' do
-      distance = repository.upsert(origin: 'A', destination: 'B', value: 100)
+      distance, operation = repository.upsert(origin: 'A', destination: 'B', value: 100)
       distance.must_equal repository.find(distance.id)
+      operation.must_equal :create
     end
 
     it 'update an already inserted distance with same origin and destination' do
-      distance = repository.create(origin: 'A', destination: 'B', value: 100)
-      repository.upsert(origin: 'A', destination: 'B', value: 100).must_equal distance
+      original_distance = repository.create(origin: 'A', destination: 'B', value: 100)
+      updated_distance, _ = repository.upsert(origin: 'A', destination: 'B', value: 100)
+      without_timestamps(updated_distance).must_equal without_timestamps(original_distance)
     end
   end
 

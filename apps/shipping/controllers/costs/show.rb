@@ -13,8 +13,8 @@ module Shipping::Controllers::Costs
       required(:weight).filled(:float?)
     end
 
-    def initialize(repository: DistanceRepository.new)
-      @repository = repository
+    def initialize(route_repository: RouteRepository.new)
+      @route_repository = route_repository 
     end
 
     def call(params)
@@ -31,9 +31,16 @@ module Shipping::Controllers::Costs
     private
 
     def calculate_cost(params)
-      origin = Location.new(repository: @repository, name: params[:origin])
-      destination = Location.new(repository: @repository, name: params[:destination])
-      @distances = origin.shortest_path(destination)
+      route = @route_repository.find_by_origin_and_destination_with_distances(origin: params[:origin], destination: params[:destination])
+      @distances = if route
+                     route.distances
+                   else
+                     origin = Location.new(name: params[:origin])
+                     destination = Location.new(name: params[:destination])
+                     distances = origin.shortest_path(destination)
+                     @route_repository.create_and_associate_distances(origin: params[:origin], destination: params[:destination], distances: distances)
+                     distances
+                   end
 
       fresh etag: etag
 
