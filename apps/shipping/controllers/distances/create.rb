@@ -17,7 +17,7 @@ module Shipping::Controllers::Distances
     after :refresh_distances_graph
 
     def initialize(
-      repository: DistanceRepository.new(HackCommerce.rom_container), 
+      repository: DistanceRepository.new, 
       worker: RefreshDistancesGraphWorker)
       @repository = repository
       @worker = worker
@@ -25,7 +25,14 @@ module Shipping::Controllers::Distances
 
     def call(params)
       if params.valid?
-        @repository.upsert(params[:distance])
+        distance, op = @repository.upsert(params[:distance])
+        if op == :update 
+          distance_with_routes = @repository.find_by_id_with_routes(distance.id)
+          if distance_with_routes.routes.any?
+            route_ids = distance_with_routes.routes.map(&:id)
+            RecalculateDistancesWorker.perform_async(route_ids)
+          end
+        end
         status 200, 'OK'
       else
         status 422, params.error_messages

@@ -5,7 +5,15 @@ require 'minitest/stub_any_instance'
 describe Shipping::Controllers::Costs::Show do
   let(:action) { Shipping::Controllers::Costs::Show.new }
   let(:params) { Hash[] }
-  let(:repository) { DistanceRepository.new }
+  let(:distance_repository) { DistanceRepository.new }
+  let(:route_repository) { RouteRepository.new }
+  let(:stretch_repository) { StretchRepository.new }
+
+  before do
+    distance_repository.clear
+    route_repository.clear
+    stretch_repository.clear
+  end
 
   describe 'with invalid params' do
     describe 'on the absense of any required parameter' do
@@ -34,9 +42,11 @@ describe Shipping::Controllers::Costs::Show do
   describe 'with valid params' do
     let(:params) { Hash[origin: 'A', destination: 'C', weight: 100.0] }
     let(:distances) {
-      [Distance.new(origin: 'A', destination: 'B', value: 3, updated_at: Time.now),
-       Distance.new(origin: 'B', destination: 'C', value: 3, updated_at: Time.now),
-       Distance.new(origin: 'C', destination: 'D', value: 3, updated_at: Time.now)]
+      [{ origin: 'A', destination: 'B', value: 3, updated_at: Time.now },
+       { origin: 'B', destination: 'C', value: 3, updated_at: Time.now },
+       { origin: 'C', destination: 'D', value: 3, updated_at: Time.now }].map do |attrs|
+         distance_repository.create(attrs)
+       end
     }
 
     it 'returns status 200 with cost value' do
@@ -72,7 +82,7 @@ describe Shipping::Controllers::Costs::Show do
 
       it 'returns 304 when distances changed in elapsed time' do
         dist = distances[0]
-        distances[0] = Distance.new dist.to_h.merge(updated_at: dist.updated_at + (60 * 10))
+        distances[0] = distance_repository.changeset(distances[0].id, updated_at: dist.updated_at + (60 * 10)).commit
 
         Location.stub_any_instance :shortest_path, distances do
           response = action.call(params.merge('HTTP_IF_NONE_MATCH' => @etag))

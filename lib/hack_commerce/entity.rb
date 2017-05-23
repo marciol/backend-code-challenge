@@ -3,7 +3,7 @@ require 'dry-struct'
 require 'dry-monads'
 
 module HackCommerce
-  class Entity < Dry::Struct
+  class Entity < ROM::Struct
     constructor_type :schema
 
     Dry::Types.load_extensions(:maybe)

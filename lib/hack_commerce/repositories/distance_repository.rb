@@ -1,13 +1,21 @@
 class DistanceRepository < HackCommerce::Repository[:distances]
+  relations :routes
   entity Distance
 
   def upsert(**args)
     origin, destination = args.values_at(:origin, :destination)
-    if distance = distances.where(origin: origin, destination: destination).first
-      res = update(distance.id, args)
-    else
-      res = create(args)
-    end
+    result, operation = if distance = distances.where(origin: origin, destination: destination).first
+                          res = update(distance.id, args)
+                          [res, :update]
+                        else
+                          res = create(args)
+                          [res, :create]
+                        end
+    [result, operation]
+  end
+
+  def find_by_id_with_routes(distance_id)
+    distances.by_pk(distance_id).combine(:routes).one
   end
 
   def load_vertexes

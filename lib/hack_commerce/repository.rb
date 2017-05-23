@@ -49,9 +49,5 @@ module HackCommerce
     def clear
       root.delete
     end
-
-    def entity
-      self.class.entity_class
-    end
   end
 end
